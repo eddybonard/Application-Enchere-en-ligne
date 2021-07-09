@@ -1,0 +1,100 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.List"%>
+<%@page import="fr.eni.enchere.bo.ArticleVendu"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initiale-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/connexion.css">
+<title>Mes Enchères</title>
+</head>
+<body>
+ <% int credit = (int) session.getAttribute("credit");
+ 	String article = (String) session.getAttribute("article");
+ 	String pseudo = (String) session.getAttribute("pseudo");
+ 
+ 	int prix = 0;
+	if(session.getAttribute("prix") != null){
+		prix = (int) session.getAttribute("prix");
+	}else{
+		 prix = 0;
+	}
+ 	
+ 	 %>
+	<header>
+		<nav class="navbar navbar-expend-lg bg-dark">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3"><a class="navbar-brand" href="<%= request.getContextPath() %>/jsp/accueilConnecte.jsp" style="color: white;">ENI-Enchères</a></div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4"><a class="navbar-brand" href="<%= request.getContextPath() %>/jsp/ServletNouvelleEnchere"  ><button type="button" class="btn btn-secondary">+ Nouvelle enchère</button></a></div>
+					<div class="col-lg-4" style="margin-top: 5px; position: relative; left: 25px;">
+			 							<div class="dropdown">
+								         	 <button class="btn btn-secondary dropdown-toggle" type="button" id="deroulantb" data-toggle="dropdown" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-vinyl-fill" viewBox="0 0 16 16" style="color: green;">
+		  								 	 	<path d="M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 3a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+		  								 	 	<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0z"/>
+										  	</svg> Compte</button>
+								         	 <div class="dropdown-menu" aria-labelledby="deroulantb">
+								            	<a class="dropdown-item" href="<%= request.getContextPath() %>/jsp/ServletAfficherProfil">Profil</a><hr>
+								           		 <a class="dropdown-item" href="<%= request.getContextPath() %>/accueil.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-vinyl-fill" viewBox="0 0 16 16" style="color: red;">
+		  										<path d="M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 3a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+		  										<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0z"/>
+											</svg> Déconexion</a>
+								          </div>
+			 							</div>	
+					</div>
+					<div class="col-lg-4"   > <a href="<%= request.getContextPath() %>/jsp/formulaireModificationProfil.jsp" class="navbar-brand"><button type="button" class="btn btn-warning"><%= credit %> crédit</button></a></div>
+					
+				</div>
+			</div>
+		</nav>
+	</header>
+	
+	<main>
+				
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4" style="margin-top: 10px;">
+							<div class="card" style="width: 18em;">
+								<img alt="photo de l'Article" src="<%= request.getContextPath() %>/img//photo.jfif">
+									<div class="card-body">
+										<h5><%= article %></h5>
+										<p>Prix : <%= prix %> </p>
+										<p>Fin d'enchère : <%= LocalDate.now() %> </p>
+										<p>Vendeur : <%= pseudo %></p>
+										<a href="<%= request.getContextPath() %>/jsp/ServletAfficherDetailEnchere"><button class="btn btn-info" type="button"  >Détails</button></a>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4" style="margin-top: 10px; ">
+							<div class="card" style="width: 18em;">
+								<img alt="photo de l'Article" src="<%= request.getContextPath() %>/img//photo.jfif">
+									<div class="card-body">
+										<h5>Titre</h5>
+										<p>Prix : </p>
+										<p>Fin d'enchère : </p>
+										<p>Vendeur :</p>
+										<a href="<%= request.getContextPath() %>/jsp/ServletAfficherDetailEnchere"><button class="btn btn-info" type="button"  >Détails</button></a>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+	</main>
+	
+	<%@ include file="fragment/piedDePage.html" %>
+	
+	<!--Bootstrap Bundle with Popper-->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+</body>
+</html>

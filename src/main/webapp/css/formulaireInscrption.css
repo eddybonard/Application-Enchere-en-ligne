@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+
+
+#copyright {
+	
+	color: white;
+	text-align: center;
+	
+}
+
+.formulaire{
+	
+	text-align: center;
+	margin-top: 100px;
+	border: 1px solid black;
+
+	}
+	
+	
+	
+footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
